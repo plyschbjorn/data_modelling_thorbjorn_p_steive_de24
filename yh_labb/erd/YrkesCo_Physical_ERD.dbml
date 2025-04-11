@@ -1,0 +1,182 @@
+Table stad{
+  stad_id SERIAL [primary key]
+  stad VARCHAR(50) [not null]
+}
+
+Table adress{
+  adress_id SERIAL [primary key]
+  stad_id INTEGER [not null, ref: > stad.stad_id]
+  gatuadress VARCHAR(100) [not null]
+  postnummer VARCHAR(6) [not null]
+}
+
+Table skola{
+  skol_id SERIAL [primary key]
+  adress_id INTEGER [not null, ref: - adress.adress_id]
+  skolnamn VARCHAR(50) [not null]
+}
+
+Table personuppgift{
+  pu_id SERIAL [primary key]
+  adress_id INTEGER [not null, ref: > adress.adress_id]
+  personnummer CHAR(12) [not null]
+}
+
+Table program{
+  program_id VARCHAR(10) [primary key]
+  programnamn VARCHAR(50) [not null]
+}
+
+Table skolprogram{
+  skol_id INTEGER [not null, ref: > skola.skol_id]
+  program_id VARCHAR(10) [not null, ref: > program.program_id]
+  INDEXES {(skol_id, program_id) [pk]}
+}
+
+Table beviljat{
+  beviljat_id SERIAL [primary key]
+  program_id VARCHAR(10) [not null, ref: > program.program_id]
+  anno VARCHAR(2) [not null]
+}
+
+Table kurs{
+  kurs_id SERIAL [primary key]
+  kursnamn VARCHAR(50) [not null]
+  kurskod VARCHAR(10) [not null]
+  point INTEGER [not null]
+  beskrivning VARCHAR(255)
+}
+
+Table kursprogram{
+  kurs_id INTEGER [not null, ref: > kurs.kurs_id]
+  program_id VARCHAR(10) [not null, ref: > program.program_id]
+  INDEXES {(kurs_id, program_id) [pk]}
+}
+
+Table yrkesroll{
+  yrkes_id SERIAL [primary key]
+  titel VARCHAR (50) [not null]
+}
+
+Table personal{
+  personal_id INTEGER [primary key]
+  yrkes_id INTEGER [not null, ref: > yrkesroll.yrkes_id]
+  namn VARCHAR(50) [not null]
+  efternamn VARCHAR(100) [not null]
+  epost VARCHAR(255) [not null]
+  telefon VARCHAR(15) [not null]
+}
+
+Table konsultbolag{
+  org_nummer VARCHAR(11) [primary key]
+  adress_id INTEGER [not null, ref: > adress.adress_id]
+  bolagsnamn VARCHAR(100) [not null]
+  f_skatt BOOL [not null]
+}
+
+Table konsult{
+  konsult_org_nummer VARCHAR(11) [not null, ref: > konsultbolag.org_nummer]
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+  timpris FLOAT [not null]
+  INDEXES {(konsult_org_nummer, personal_id) [pk]}
+}
+
+Table fast_arbete{
+  pu_id INTEGER [not null, ref: - personuppgift.pu_id]
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+  INDEXES {(pu_id, personal_id) [pk]}
+}
+
+Table skolpersonal{
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+  skol_id INTEGER [not null, ref: > skola.skol_id]
+  INDEXES {(personal_id, skol_id) [pk]}
+}
+
+Table kurspersonal{
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+  kurs_id INTEGER [not null, ref: > kurs.kurs_id]
+  INDEXES {(personal_id, kurs_id) [pk]}
+}
+
+Table fri_kurs{
+  fk_id SERIAL [primary key]
+  skol_id INTEGER [ref: > skola.skol_id]
+  kurs_id INTEGER [ref: > kurs.kurs_id]
+  personal_id INTEGER [ref: > personal.personal_id]
+}
+
+Table student{
+  student_id SERIAL [primary key]
+  pu_id INTEGER [not null, ref: - personuppgift.pu_id]
+  skol_id INTEGER [not null, ref: > skola.skol_id]
+  namn VARCHAR(50) [not null]
+  efternamn VARCHAR(100) [not null]
+  epost VARCHAR(255) [not null]
+  telefon VARCHAR(15) [not null]
+}
+
+Table fri_student{
+  fk_id INTEGER [not null, ref: > fri_kurs.fk_id]
+  student_id INTEGER [not null, ref: > student.student_id]
+  INDEXES {(fk_id, student_id) [pk]}
+}
+
+Table klass{
+  klass_id SERIAL [primary key]
+  beviljat_id INTEGER [not null, ref: < beviljat.beviljat_id]
+  skol_id INTEGER [not null, ref: > skola.skol_id]
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+}
+
+Table antagen_student{
+  klass_id integer [not null, ref: > klass.klass_id]
+  student_id integer [not null, ref: > student.student_id]
+  indexes {(klass_id, student_id) [pk]}
+}
+
+Table kursbetyg{
+  student_id INTEGER [not null, ref: < student.student_id]
+  kurs_id INTEGER [not null, ref: > kurs.kurs_id]
+  betyg VARCHAR(3) [not null]
+  INDEXES {(student_id, kurs_id) [pk]}
+}
+
+Table ledningsgrupp{
+  ledningsgrupp_id SERIAL [primary key]
+  program_id VARCHAR(10) [not null, ref: > program.program_id]
+  skol_id INTEGER [not null, ref: > skola.skol_id]
+}
+
+Table ledningspersonal{
+  ledningsgrupp_id INTEGER [not null, ref: > ledningsgrupp.ledningsgrupp_id]
+  personal_id INTEGER [not null, ref: > personal.personal_id]
+  INDEXES {(ledningsgrupp_id, personal_id) [pk]}
+}
+
+Table ledningstudent{
+  ledningsgrupp_id INTEGER [not null, ref: > ledningsgrupp.ledningsgrupp_id]
+  student_id INTEGER [not null, ref: > student.student_id]
+  INDEXES {(ledningsgrupp_id, student_id) [pk]}
+}
+
+Table firma{
+  org_nummer VARCHAR(11) [primary key]
+  namn VARCHAR(100) [not null]
+  representant VARCHAR(100) [not null]
+  epost VARCHAR(255) [not null]
+  telefon VARCHAR(15) [not null]
+}
+
+Table ledningsfirma{
+  ledningsgrupp_id INTEGER [not null, ref: > ledningsgrupp.ledningsgrupp_id]
+  org_nummer VARCHAR(11) [not null, ref: > firma.org_nummer]
+  INDEXES {(ledningsgrupp_id, org_nummer) [pk]}
+}
+
+Table protokoll{
+  protokoll_id SERIAL [primary key]
+  ledningsgrupp_id INTEGER [not null, ref: > ledningsgrupp.ledningsgrupp_id]
+  protokoll VARCHAR(100000) [not null]
+  datum date [not null]
+}

@@ -1,0 +1,10 @@
+Business Rules: 
+För varje tre år ett program blir beviljat måste det innehålla samma kurser
+Der finns inga distanskurser
+Adresser är kopplade till personnummer, adress plockas från folkbokföring
+Man kan bara gå en klass åt gången i vår skola
+Utbildningsledare kan bara vara kopplad till en skola
+Man kan bara ha en yrkesroll
+Om en lärare vill börja studera så får hen fan göra det någon annastans
+En enda UL håller i alla fristående kurser per skola
+Skolan är ny, således bara studenter i 24-klasserna

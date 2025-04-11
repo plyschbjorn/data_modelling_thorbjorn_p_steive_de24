@@ -1,0 +1,130 @@
+
+Relationship statments
+
+Konsultbolag och konsult:
+    -> Ett konsultbolag har en eller flera Konsult
+    <- En konsult är kopplad till ett och endast ett konsultbolag
+ 
+Konsultbolag och Adress:
+    -> Ett konsultbolag har en och endast en adress
+    <- En adress kan 0 eller flera konsultbolag
+ 
+Konsult och Personal:
+    -> En eller flera konsulter kan vara Personal
+    <- En Konsult kan vara kopplad till en och endast Personal
+ 
+Personal och yrkesroll:
+    -> En eller flera personal kan samma Yrkesroll 
+    <- En personal är kopplad till en och endast en Yrkesroll
+ 
+Personal och Skola:
+    - En eller flera personal kan tillhöra en eller flera skolor
+ 
+Personal och Klass
+    -> En klass har en och bara en personal som ansvarade för den
+    <- En personal ansvarar för en eller flera klasser
+ 
+Personal och kurs:
+    -> En personal håller i en eller flera kurser
+    <- En kurs hålls av en eller flera personal
+ 
+Personal och ledningsgrupp
+    ->En personal sitter i en eller flera ledningsgrupper
+    <-En ledningsgrupp innehåller en och endast en personal
+
+Personal och Fastanställning
+    ->En eller flera personal kan ha fastanställning
+    <-En fastanställning kan bara kopplas till en personal 
+
+Personal och Fristående kurs
+    -> En personal kan ansvara för flera Fristående kurser
+    <- En Fristående kurs ansvaras av en och bara en personal(Utbildnings ledare)
+
+Skola och Student:
+    -> En Skola kan ha en eller flera studenter
+    <- En student tillhör en och endast en skola 
+ 
+Skola och klass
+    -> En skola kan ha en eller flera klasser
+    <- En klass tillhör en och endast en skola
+
+Skola och adress
+    -> En skola har en och endast en adress
+    <- En Adress kan ha noll eller flera skolor
+
+Skola och Program
+    -> En skola erbjuder ett eller flera program
+    <- Ett program kan tillhöra en eller flera skolor
+
+Skola och Fristående kurs
+    -> En skola kan erbjuda noll eller flera Fristående kurser
+    <- En Fristående kurs kan erbjudas av en och endast en skola
+
+Skola och ledningsgrupp
+    -> En skola kan ha en eller flera ledningsgrupper
+    <- En ledningsgrupp kan kopplas till en och bara en skola
+
+Student och Klass:
+    -> En student kan tillhöra en och endast en klass
+    <- En klass kan ha noll eller flera studenter
+
+Student och Personuppgifter
+    - En student har en och endast en personuppgift
+
+Student och kursbetyg
+    -> En Student kan ha noll eller flera Kursbetyg
+    <- Ett Kursbetyg tillhör en och endast en Student
+
+Student och Ledningsgrupp
+    -> En student kan tillhöra en och endast en Ledningsgrupp
+    <- En Ledningsgrupp kan bestå av en eller flera Studenter
+
+Student och Fristående kurs
+    -> En Student kan student noll eller flera Fristående kurser
+    <- En Fristående kurs består av en eller flera studenter
+
+Personuppgifter och Adress
+    -> En personuppgift är kopplad till en och endast en adress
+    <- En adress kan vara kopplad till noll eller flera Personuppgifter
+
+Personuppgifter och Fastanställning
+    - En fastanställning är kopplad till en och endast en personuppgift
+    
+Adress och Stad
+    -> En adress finns i en och endast en stad (postnummer)
+    <- En Stad har en eller flera adresser
+
+Klass och beviljad omgång
+    -> En klass hör till en beviljad omgång
+    <- En beviljade omgång skapar en och flera klasser
+
+Fristående kurs och kurs
+    -> En Fristående kurs är en och endast en kurs 
+    <- En Kurs kan vara noll eller en Fristående kurs
+
+Program och Beviljade omgång
+    -> Ett program består av en eller flera beviljade omgångar
+    <- En Beviljad omgång hör till ett och endast ett program
+
+Program och Kurs
+    -> Ett program består av flera kurser
+    <- En kurs kan finnas i noll eller flera program
+
+Program Ledningsgrupp
+    -> Ett program består av en eller flera en ledningsgrupp (Olika skolor)
+    <- En ledningsgrupp består av ett och endast ett program
+
+Ledningsgrupp och Företag
+    -> En ledningsgrupp innehåller ett eller flera företag
+    <- Ett Företag kan ingå i en eller flera ledningsgrupper
+
+Ledningsgrupp och Protokoll
+    -> En Ledningsgrupp har noll eller flera protokoll
+    <- Ett Protokoll tillhör en och endast en ledningsgrupp
+
+Ledningsgrupp och Skola
+    -> En ledningsgrupp är kopplad till en och endast en skola
+    <- En skola har en eller flera ledningsgrupper
+
+Kurs och kursbetyg
+    - En Kurs ger ett och endast ett kursbetyg
